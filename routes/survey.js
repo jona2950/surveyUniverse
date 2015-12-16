@@ -27,10 +27,11 @@ var router = express.Router();
 var Users = require('../models/user');
 
 /* get event for "/survey" and render the panel */
-router.get('/survey', function (req, res, next) {
-    res.render('index', {
+router.get('/', function (req, res, next) {
+    res.render('router/index', {
         title: 'Survey Panel',
         displayName: req.user ? req.user.displayName : ''
     });
 });
 
+module.exports = router;

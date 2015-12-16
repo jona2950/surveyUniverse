@@ -1,0 +1,32 @@
+
+html {
+  background-image: url(/images/qsurvey-backgroundrev2-invert.png);
+}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  
+
+}
+
+
+div.boxit {
+
+   border-style: ridge;
+   border-color: darkblue;
+   border-width: 6px;
+   transition: border .3s ease-in-out;
+}
+div.boxit:hover {
+  
+    border-color: transparent;
+    background-repeat: no-repeat;
+    border-style: double;
+
+    display: block;
+    border-width: 15px;
+}
+  
+a {
+  color: #00B7FF;
+}

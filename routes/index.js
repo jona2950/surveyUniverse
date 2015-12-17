@@ -29,7 +29,7 @@ router.get('/login', function (req, res, next) {
 
 /* Process the Login Request */
 router.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/users',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
 }));
@@ -52,7 +52,7 @@ router.get('/register', function (req, res, next) {
 /* POST signup data. */
 router.post('/register', passport.authenticate('local-registration', {
     //Success go to Profile Page / Fail go to Signup page
-    successRedirect : '/users',
+    successRedirect : '/login',
     failureRedirect : '/register',
     failureFlash : true
 }));

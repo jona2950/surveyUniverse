@@ -1,0 +1,44 @@
+<% include ../partials/header.ejs %>
+
+<main class="container">
+    <h1>Add a New Survey</h1>
+       <div class="col-sm-4 col-sm-offset-4">
+        <form method="post">
+            <fieldset class="form-group">
+                <label for="survey_name">Survey Name: *</label>
+                <input name="survey_name" type="text" class="form-control" required autofocus />
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="question_1">Question1: *</label>
+                <input name="question_1" type="text" class="form-control" required autofocus />
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="question_2">Question2: *</label>
+                <input name="question_2" type="text" class="form-control" required autofocus />
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="question_3">Question3: *</label>
+                <input name="question_3" type="text" class="form-control" required autofocus />
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="question_4">Question4: *</label>
+                <input name="question_4" type="text" class="form-control" required autofocus />
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="question_5">Question5: *</label>
+                <input name="question_5" type="text" class="form-control" required autofocus />
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="surveyType">Survey Type: *</label>
+                <input name="surveyType" type="radio" class="form-control" required />True or False
+                <input name="surveyType" type="radio" class="form-control" required />Multiple Choice
+            </fieldset>
+            <fieldset class="form-group text-right">
+                <input type="submit" class="btn btn-success" value="Submit"/>
+            </fieldset>
+        </form>
+    </div>
+
+</main>
+
+<% include ../partials/footer.ejs %>

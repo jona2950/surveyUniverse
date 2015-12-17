@@ -5,10 +5,25 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var session = require('express-session');
+var mongoose = require('mongoose');
+var flash = require('connect-flash');
+var passport = require('passport');
+
+//DB Setup
+var DB = require('./config/db.js');
+mongoose.connect(DB.url);
+mongoose.connection.on('error', function() {
+  console.error('MongoDB Connection Failed..');
+});
+
+var surveys = require('./routes/surveys');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+require('./config/passport')(passport);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,12 +37,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Session setup
+app.use(session({
+  secret: 'someSecret',
+  saveUninitialized: true,
+  resave: true
+}));
+
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //handle file routing for /public directory
 app.use(express.static(__dirname + '/public'));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/surveys', surveys);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

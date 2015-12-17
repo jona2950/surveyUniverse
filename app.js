@@ -17,7 +17,7 @@ mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Failed..');
 });
 
-var surveys = require('./routes/surveys');
+//var surveys = require('./routes/surveys');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -53,7 +53,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/surveys', surveys);
+//app.use('/surveys', surveys);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

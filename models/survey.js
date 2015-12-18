@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // Define our user Schema
-var surveyInfo = new Schema({
+var SurveySchema = new Schema({
 survey_name: String,
 question_1: String,
   question_1_1: String,

@@ -41,7 +41,7 @@ router.get('/ask-how', function(req, res, next) {
         title: 'Binary or Quantized', 
         displayName: req.user ? req.user.displayName : '', 
         addressNotes: 'In this section you need to choose how questions will be presented',
-        questioneerType: ['YES', 'NO']
+        questioneerType: ['binary', 'quantumn']
     } ); 
 });
 

@@ -20,6 +20,8 @@ mongoose.connection.on('error', function() {
 //var surveys = require('./routes/surveys');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+//routing for survey routing module
+var surveyApp = require('./routes/survey');
 
 var app = express();
 
@@ -53,7 +55,8 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/', routes);
 app.use('/users', users);
-//app.use('/surveys', surveys);
+//permits middleware routing function to surveyApp
+app.use('/survey', surveyApp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -4,29 +4,37 @@ html {
 }
 
 body {
+  background-image: url(/images/paisley/paisley.png);
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  
+      position: relative;
+    min-width: 768px;
+    min-height: 652px;
+    height: 100%;
 
 }
 
 
 div.boxit {
-
+  background-image: url(/images/stardust/stardust.png);
+   color: #C7F2FF;
    border-style: ridge;
-   border-color: darkblue;
+   border-color: #000000;
    border-width: 6px;
    transition: border .3s ease-in-out;
 }
-div.boxit:hover {
-  
-    border-color: transparent;
-    background-repeat: no-repeat;
-    border-style: double;
 
+div.boxit:hover {
+    background-repeat: no-repeat;
     display: block;
     border-width: 15px;
 }
   
 a {
   color: #00B7FF;
+}
+
+div.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

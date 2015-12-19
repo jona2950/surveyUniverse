@@ -42,11 +42,11 @@ function requireAuth(req, res, next){
 
 /* get event for "/survey" and render with precreated surveys */
 router.get('/', function (req, res, next) {
-    //survey retains found collection data from Surveys Model
+    //survey retains found collection data thru Surveys Model
     Surveys.find({}, function(err, questioneer) {
         if (err) {
              throw err;
-            //object of all the surveries
+            //object of all the surveries durring error
             console.log(questioneer);
         } 
         else {
@@ -73,7 +73,8 @@ router.get('/ask-how', function(req, res, next) {
 router.post('/ask-how', function(req, res, next) {
     //display to console the option user selected
    console.log(req.body.questType);
-  
+    
+    //user choice is than redirected questions views 
     if (req.body.questType == "quantumn"){ 
         res.redirect('survey/add');
     }
@@ -165,8 +166,9 @@ router.get('/add', requireAuth, function (req, res, next) {
     });
 });
 
-/* process the submission of a new user */
+/* process the submission of a new survey */
 router.post('/add', requireAuth, function (req, res, next) {
+        //add the new survey into our database with Survey Model
     Surveys.create({
         survey_name: req.body.survey_name,
         question_1: req.body.question_1,

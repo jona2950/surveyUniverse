@@ -27,6 +27,20 @@ var router = express.Router();
 var User = require('../models/user');
 var Surveys = require('../models/survey');
 
+
+var User = require('../models/user');
+
+/* Utility functin to check if user is authenticatd */
+function requireAuth(req, res, next){
+
+  // check if the user is logged in
+  if(!req.isAuthenticated()){
+    return res.redirect('/login');
+  }
+  next();
+}
+
+
 //survey retains found collection data from Surveys Model
 var survey = Surveys.find({}, function(err, surveyies) {
     if (err) throw err;
@@ -56,6 +70,11 @@ router.get('/ask-how', function(req, res, next) {
 
 //take post requests from ask-how
 router.post('/ask-how', function(req, res, next) {
+   console.log(req.body.questType);
+});
+
+//take post requests from ask-how
+router.post('/questions', function(req, res, next) {
     if (req.body.questType == "quantumn"){
         Surveys.create({
             survey_name: req.body.quest_name,
@@ -130,7 +149,7 @@ router.post('/ask-how', function(req, res, next) {
 
 /* Render the Add Users Page */
 router.get('/add', requireAuth, function (req, res, next) {
-    res.render('users/add', {
+    res.render('survey/add', {
         title: 'Users',
         displayName: req.user ? req.user.displayName : ''
     });

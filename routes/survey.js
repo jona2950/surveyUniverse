@@ -27,11 +27,20 @@ var router = express.Router();
 var User = require('../models/user');
 var Surveys = require('../models/survey');
 
+//survey retains found collection data from Surveys Model
+var survey = Surveys.find({}, function(err, surveyies) {
+    if (err) throw err;
+    
+    //object of all the surveries
+    console.log(surveyies);
+})
+
 /* get event for "/survey" and render the panel */
 router.get('/', function (req, res, next) {
     res.render('survey/index', {
         title: 'Survey Panel',
-        displayName: req.user ? req.user.displayName : ''
+        displayName: req.user ? req.user.displayName : '',
+        Surveys: survey
     });
 });
 
@@ -118,6 +127,37 @@ router.post('/ask-how', function(req, res, next) {
     }
 
 });
+
+/* Render the Add Users Page */
+router.get('/add', requireAuth, function (req, res, next) {
+    res.render('users/add', {
+        title: 'Users',
+        displayName: req.user ? req.user.displayName : ''
+    });
+});
+
+/* process the submission of a new user */
+router.post('/add', requireAuth, function (req, res, next) {
+    var user = new User(req.body);
+    var hashedPassword = user.generateHash(user.password);
+    User.create({
+        email: req.body.email,
+        password: hashedPassword,
+        displayName: req.body.displayName,
+        provider: 'local',
+        created: Date.now(),
+        updated: Date.now()
+    }, function (err, User) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            res.redirect('/users');
+        }
+    });
+});
+
 
 
 router.post

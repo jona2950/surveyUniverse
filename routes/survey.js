@@ -191,6 +191,66 @@ router.post('/add', requireAuth, function (req, res, next) {
     });
 });
 
+//render the survey editor 
+router.get('/:id', requireAuth, function(req, res, next) {
+    // retains id from get method
+    var id = req.params.id;
+    
+    //use mongoose and Surveys model to find corresponding survey
+    Surveys.findById(id, function(err, questioneer){
+        if (err){
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            //pass the edit view binds
+            res.render('survey/edit', {
+                title: 'Survey Editor',
+                Surveys: questioneer,
+                displayName: req.user ? req.user.displayName : '' 
+            });
+        }
+    });
+});;
+
+//process edit selected survey ID ///edit:id
+router.post('/:id', requireAuth, function(req, res, next) {
+    //retains id from get method :id from url
+    var id = req.params.id;
+    //create our temporary survey model
+    var questioneer = new Surveys(req.body);
+    
+    questioneer._id = id;
+    questioneer.updated = Date.now();
+    
+    //use mongoose and Surveys model to find survey with id
+    Surveys.update({ _id: id }, questioneer, function(err) {
+        //error handling 
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            res.redirect('/survey')
+        }
+        
+    });
+   
+});
+
+//remove sent survey ID
+router.post('/delete/:id', requireAuth, function (req, res,next ){
+    var id = req.param.id;
+    
+    Surveys.remove({_id:id}, function(err){
+        if (err) {
+            console.log(err);
+            res.end(err);
+        } else {
+            res.redirect('/survey');
+        }
+    });
+});
 
 
 router.post

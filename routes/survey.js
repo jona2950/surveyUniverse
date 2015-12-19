@@ -70,7 +70,16 @@ router.get('/ask-how', function(req, res, next) {
 
 //take post requests from ask-how
 router.post('/ask-how', function(req, res, next) {
+    //display to console the option user selected
    console.log(req.body.questType);
+  
+    if (req.body.questType == "quantumn"){ 
+        res.redirect('survey/add');
+    }
+    else if (req.body.questType == "binary"){
+        res.redirect('survey/add');
+    }
+   
 });
 
 //take post requests from ask-how
@@ -140,14 +149,14 @@ router.post('/questions', function(req, res, next) {
                 res.end(err);
             }
             else {
-                res.redirect('ask/questions');
+                res.send('ask/questions');
             }
         })
     }
 
 });
 
-/* Render the Add Users Page */
+/* Render the Add Survey Page */
 router.get('/add', requireAuth, function (req, res, next) {
     res.render('survey/add', {
         title: 'Users',
@@ -157,13 +166,15 @@ router.get('/add', requireAuth, function (req, res, next) {
 
 /* process the submission of a new user */
 router.post('/add', requireAuth, function (req, res, next) {
-    var user = new User(req.body);
-    var hashedPassword = user.generateHash(user.password);
-    User.create({
-        email: req.body.email,
-        password: hashedPassword,
-        displayName: req.body.displayName,
-        provider: 'local',
+    Surveys.create({
+        survey_name: req.body.survey_name,
+        question_1: req.body.question_1,
+        question_2: req.body.question_2,
+        question_3: req.body.question_3,
+        question_4: req.body.question_4,
+        question_5: req.body.question_5,
+        surveyType: req.body.surveyType,
+        creator: req.user ? req.user.DisplayName: '',
         created: Date.now(),
         updated: Date.now()
     }, function (err, User) {
@@ -172,7 +183,7 @@ router.post('/add', requireAuth, function (req, res, next) {
             res.end(err);
         }
         else {
-            res.redirect('/users');
+            res.redirect('/survey');
         }
     });
 });

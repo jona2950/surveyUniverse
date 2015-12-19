@@ -1,12 +1,12 @@
 <% include ../partials/header.ejs %>
 
 <main class="container">
-    <h1>Contacts</h1>
+    <h1>Surveys</h1>
     <div class="panel panel-default">
         <div class="panel-heading">
             <a href="/survey/add" title="Add Survey"><i class="fa fa-plus-circle"></i> Add a new Survey</a>
         </div> <!-- panel-heading -->
-        <% if (Surveys.length > 0) { %>
+        <% if (Surveys.length < 0) { %>
         <div class="panel-body table-responsive">
             <table class="table table-bordered table-striped table-hover">
                 <thead>

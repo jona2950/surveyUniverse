@@ -40,21 +40,22 @@ function requireAuth(req, res, next){
   next();
 }
 
-
-//survey retains found collection data from Surveys Model
-var survey = Surveys.find({}, function(err, surveyies) {
-    if (err) throw err;
-    
-    //object of all the surveries
-    console.log(surveyies);
-})
-
-/* get event for "/survey" and render the panel */
+/* get event for "/survey" and render with precreated surveys */
 router.get('/', function (req, res, next) {
-    res.render('survey/index', {
-        title: 'Survey Panel',
-        displayName: req.user ? req.user.displayName : '',
-        Surveys: survey
+    //survey retains found collection data from Surveys Model
+    Surveys.find({}, function(err, questioneer) {
+        if (err) {
+             throw err;
+            //object of all the surveries
+            console.log(questioneer);
+        } 
+        else {
+            res.render('survey/index', {
+                title: 'Survey Panel',
+                displayName: req.user ? req.user.displayName : '',
+                Surveys: questioneer
+            })
+        }
     });
 });
 
